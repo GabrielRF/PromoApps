@@ -18,7 +18,7 @@ lastUpdates = 'history'
 user_agent = {'User-agent': 'Mozilla/5.1'}
 
 def send_photo(app_img, app_name, app_link, app_price, app_desc):
-    caption = f'<b>{app_name}</b>\n{app_desc}\n\n{app_price}'
+    caption = f'<b>{app_name}</b>\n{app_desc}\n\n{app_price}\n\n{app_link}'
     response = requests.get(app_img)
     open('img.png', 'wb').write(response.content)
     app_img = open('img.png', 'rb')
@@ -80,7 +80,7 @@ def read_topic(link):
             #btn = types.InlineKeyboardButton('AppStore', url=app_link)
             #btn_link.row(btn)
             send_photo(app_img, app_name, app_link, app_price, app_desc)
-            time.sleep(30)
+            time.sleep(5)
             
 if __name__ == "__main__":
     feed = feedparser.parse(FEED_URL)
