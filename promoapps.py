@@ -78,10 +78,10 @@ def read_topic(link):
             #print('Desc: ' + str(app_desc[:250]) + '...')
             print('OS: ' + str(app_os))
             print('-'*80)
-            #btn_link = types.InlineKeyboardMarkup()
-            #btn = types.InlineKeyboardButton('AppStore', url=app_link)
-            #btn_link.row(btn)
-            send_message(app_name, app_link, app_price, app_desc, app_img,) #btn_link
+            btn_link = types.InlineKeyboardMarkup()
+            btn = types.InlineKeyboardButton('AppStore', url=app_link)
+            btn_link.row(btn)
+            send_message(app_name, app_link, app_price, app_desc, app_img, btn_link)
 
 if __name__ == "__main__":
     feed = feedparser.parse(FEED_URL)
