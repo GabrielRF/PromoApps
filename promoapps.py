@@ -80,7 +80,8 @@ def read_topic(link):
             #btn = types.InlineKeyboardButton('AppStore', url=app_link)
             #btn_link.row(btn)
             send_photo(app_img, app_name, app_link, app_price, app_desc)
-
+            time.sleep(30)
+            
 if __name__ == "__main__":
     feed = feedparser.parse(FEED_URL)
     htmltg = get_site()
