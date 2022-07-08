@@ -62,7 +62,7 @@ def read_topic(link):
             app_name = html.find('meta', {'property': 'og:title'})['content']
             app_name = app_name.split('on the App')[0]
             try:
-                app_desc = html.find('div', {'class': 'section__description'}).text.strip()[:200]
+                app_desc = html.find('div', {'class': 'section__description'}).text.strip()[:250]
             except AttributeError:
                 app_desc = ''
             app_desc = app_desc.replace('Description\n','')
@@ -72,16 +72,16 @@ def read_topic(link):
                 continue
             print('Name: ' + str(app_name))
             print('Link: ' + str(app_link))
-            #print('Yourls: ' + str(app_link))
-            #print('Price: ' + str(app_price))
-            #print('Desc: ' + str(app_desc[:200]) + '...')
-            #print('OS: ' + str(app_os))
-            #print('Img: ' + str(app_img))
+            print('Yourls: ' + str(app_link))
+            print('Price: ' + str(app_price))
+            print('Desc: ' + str(app_desc[:200]) + '...')
+            print('OS: ' + str(app_os))
+            print('Img: ' + str(app_img))
             print('-'*80)
-            btn_link = types.InlineKeyboardMarkup()
-            btn = types.InlineKeyboardButton('AppStore', url=app_link)
-            btn_link.row(btn)
-            send_message(app_name, app_link, app_price, app_desc, app_img, btn_link)
+            #btn_link = types.InlineKeyboardMarkup()
+            #btn = types.InlineKeyboardButton('AppStore', url=app_link)
+            #btn_link.row(btn)
+            send_message(app_name, app_link, app_price, app_desc, app_img,) #btn_link
 
 if __name__ == "__main__":
     feed = feedparser.parse(FEED_URL)
