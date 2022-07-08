@@ -19,7 +19,7 @@ user_agent = {'User-agent': 'Mozilla/5.1'}
 
 def send_photo(app_img, app_name, app_link, app_price, app_desc):
     caption = f'<b>{app_name}</b>\n{app_desc}\n\n{app_price}'
-    app_img = open('app_img', 'rb')
+    app_img = open(app_img, 'rb')
     bot.send_photo(f'@{DESTINATION}', app_img, caption=caption, parse_mode='HTML')
 
 def get_site():
