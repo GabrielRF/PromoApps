@@ -18,7 +18,7 @@ lastUpdates = 'history'
 user_agent = {'User-agent': 'Mozilla/5.1'}
 
 def send_photo(app_img, app_name, app_link, app_price, app_desc):
-    caption = f'<b>{app_name}</b>\n{app_desc}\n\n💲 {app_price}\n\n⬇️ <i>{app_link}</i>'
+    caption = f'<b>{app_name}</b>\n{app_desc}\n\n💲 {app_price}\n\n⬇️ {app_link}\n\n@PromoApps'
     response = requests.get(app_img)
     open('img.png', 'wb').write(response.content)
     app_img = open('img.png', 'rb')
