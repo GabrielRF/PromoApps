@@ -70,13 +70,13 @@ def read_topic(link):
                 app_img = html.find('meta', {'property': 'og:image:secure_url'})['content']
             except TypeError:
                 continue
+            print('Img: ' + str(app_img))
             print('Name: ' + str(app_name))
             print('Link: ' + str(app_link))
-            print('Yourls: ' + str(app_link))
+            #print('Yourls: ' + str(app_link))
             print('Price: ' + str(app_price))
-            print('Desc: ' + str(app_desc[:200]) + '...')
+            #print('Desc: ' + str(app_desc[:250]) + '...')
             print('OS: ' + str(app_os))
-            print('Img: ' + str(app_img))
             print('-'*80)
             #btn_link = types.InlineKeyboardMarkup()
             #btn = types.InlineKeyboardButton('AppStore', url=app_link)
