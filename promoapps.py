@@ -21,7 +21,7 @@ def send_photo(app_img, app_name, app_link, app_price, app_desc):
     message = ('<b> ' + str(app_name) + '</b><a href="' + str(app_img) + '">.</a>'
         + '\n' + str(app_desc.replace("'",'')) 
         + '\n\n' + str(app_price))
-    bot.send_photo(f'@{DESTINATION}', photo, parse_mode='HTML')
+        bot.send_photo(f'@{DESTINATION}', app_img, message, parse_mode='HTML')
 
 def get_site():
     response = requests.get(f'https://t.me/s/{DESTINATION}')
