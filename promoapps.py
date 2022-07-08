@@ -17,13 +17,13 @@ bot = telebot.TeleBot(TOKEN)
 lastUpdates = 'history'
 user_agent = {'User-agent': 'Mozilla/5.1'}
 
-def send_photo(app_name, app_link, app_price, app_desc, app_img, btn_link):
+def send_photo(app_img, app_name, app_link, app_price, app_desc):
     message = (
         '<b> ' + str(app_name) + '</b>
         <a href="' + str(app_img) + '">.</a>'
         + '\n' + str(app_desc.replace("'",'')) 
         + '\n\n' + str(app_price))
-    bot.send_photo(f'@{DESTINATION}', message, parse_mode='HTML', reply_markup=btn_link)
+    bot.send_photo(f'@{DESTINATION}', message, parse_mode='HTML')
 
 def get_site():
     response = requests.get(f'https://t.me/s/{DESTINATION}')
@@ -77,10 +77,10 @@ def read_topic(link):
             print('Link: ' + str(app_link))
             print('Price: ' + str(app_price))
             print('-'*80)
-            btn_link = types.InlineKeyboardMarkup()
-            btn = types.InlineKeyboardButton('AppStore', url=app_link)
-            btn_link.row(btn)
-            send_message(app_name, app_link, app_price, app_desc, app_img, btn_link)
+            #btn_link = types.InlineKeyboardMarkup()
+            #btn = types.InlineKeyboardButton('AppStore', url=app_link)
+            #btn_link.row(btn)
+            send_photo(app_name, app_link, app_price, app_desc, app_img)
 
 if __name__ == "__main__":
     feed = feedparser.parse(FEED_URL)
