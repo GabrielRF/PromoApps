@@ -21,7 +21,7 @@ def send_photo(app_img, app_name, app_link, app_price, app_desc):
     caption = f'<b>{app_name}</b>\n{app_desc}\n\n{app_price}'
     response = requests.get(app_img)
     open('img.png', 'wb').write(response.content)
-    app_img = open('img.png')
+    app_img = open('img.png', 'rb')
     bot.send_photo(f'@{DESTINATION}', app_img, caption=caption, parse_mode='HTML')
 
 def get_site():
