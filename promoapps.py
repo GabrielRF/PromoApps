@@ -59,7 +59,7 @@ def read_topic(link):
             app_link = links_get
             app_link = app_link.replace('/us/','/')
             app_link = app_link.replace('.com','.com/br')
-            response = requests.get(links_get)
+            response = requests.get(app_link)
             html = BeautifulSoup(response.content, 'html.parser')
             app_name = html.find('meta', {'property': 'og:title'})['content']
             app_name = app_name.split('on the App')[0]
