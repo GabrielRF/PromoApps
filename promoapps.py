@@ -58,6 +58,7 @@ def read_topic(link):
         if '://apps.apple.com/' in str(links_get) and checkUpdates(str(links_get), get_site()):
             app_link = links_get
             app_link = app_link.replace('/us/','/')
+            app_link = app_link.replace('.com','.com/br')
             response = requests.get(links_get)
             html = BeautifulSoup(response.content, 'html.parser')
             app_name = html.find('meta', {'property': 'og:title'})['content']
