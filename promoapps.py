@@ -19,9 +19,12 @@ user_agent = {'User-agent': 'Mozilla/5.1'}
 
 def send_message(app_name, app_link, app_price, app_desc, app_img, btn_link):
     message = ('<b> ' + str(app_name) + '</b><a href="' + str(app_img) + '">.</a>'
-        + '\n' + str(app_desc.replace("'",'')) 
+        + '\n' + str(app_desc.replace("'",''))
         + '\n\n' + str(app_price))
-    bot.send_message(f'@{DESTINATION}', message, parse_mode='HTML', reply_markup=btn_link)
+    try:
+        bot.send_message(f'@{DESTINATION}', message, parse_mode='HTML', reply_markup=btn_link)
+    except:
+        pass
 
 def get_site():
     response = requests.get(f'https://t.me/s/{DESTINATION}')
