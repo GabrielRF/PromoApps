@@ -85,6 +85,7 @@ def read_topic(link):
             btn = types.InlineKeyboardButton('AppStore', url=app_link)
             btn_link.row(btn)
             send_message(app_name, app_link, app_price, app_desc, app_img, btn_link)
+            continue
 
 if __name__ == "__main__":
     feed = feedparser.parse(FEED_URL)
