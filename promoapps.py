@@ -41,7 +41,7 @@ def checkUpdates(param, html):
 def read_topic(link):
     response = requests.get(link, headers = user_agent)
     html = BeautifulSoup(response.content, 'html.parser')
-    topic_title = html.title.text.strip()
+    topic_title = html.find('meta', {'property': 'og:title'})['content']
     topic_split = topic_title.replace('[', ']')
     topic_split = topic_split.split(']')
     for index in range(len(topic_split)):
