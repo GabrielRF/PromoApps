@@ -94,4 +94,8 @@ if __name__ == "__main__":
         exit()
     for item in feed['items'][:5]:
         link = item['link']
-        read_topic(link)
+        try:
+            read_topic(link)
+        except Exception as e:
+            print(e.message, e.args)
+            pass
