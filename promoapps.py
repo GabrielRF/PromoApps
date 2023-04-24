@@ -96,6 +96,5 @@ if __name__ == "__main__":
         link = item['link']
         try:
             read_topic(link)
-        except Exception as e:
-            print(e.message, e.args)
+        except:
             pass
