@@ -18,7 +18,7 @@ lastUpdates = 'history'
 user_agent = {'User-agent': 'Mozilla/5.1'}
 
 def send_message(url, title):
-    title = title.replace('[', '')
+    title = title.replace('[', '\n')
     title = title.replace(']', '')
     message = (f'<b>{title}</b>\n{url}')
     bot.send_message(f'@{DESTINATION}', message, parse_mode='HTML')
