@@ -17,8 +17,10 @@ bot = telebot.TeleBot(TOKEN)
 lastUpdates = 'history'
 user_agent = {'User-agent': 'Mozilla/5.1'}
 
-def send_message(url):
-    message = (url)
+def send_message(url, title):
+    title = title.replace('[', '')
+    title = title.replace(']', '')
+    message = (f'<b>{title}</b>\n{url}')
     bot.send_message(f'@{DESTINATION}', message, parse_mode='HTML')
 
 def get_site():
@@ -42,9 +44,10 @@ if __name__ == "__main__":
         for url in item['summary'].split('"'):
             if '://apps.apple.com/' in url:
                 link = url
+                title = item['title']
         try:
             print(link)
         except:
             continue
         if checkUpdates((link), get_site()):
-            send_message(link)
+            send_message(link, title)
