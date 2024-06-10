@@ -21,7 +21,10 @@ def send_message(url, title):
     title = title.replace('[', '\n')
     title = title.replace(']', '')
     message = (f'<b>{title}</b>\n{url}')
-    bot.send_message(f'@{DESTINATION}', message, parse_mode='HTML')
+    try:
+        bot.send_message(f'@{DESTINATION}', message, parse_mode='HTML')
+    except:
+        pass
 
 def get_site():
     response = requests.get(f'https://t.me/s/{DESTINATION}')
