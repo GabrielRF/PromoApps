@@ -6,6 +6,8 @@ import sys
 import feedparser
 from telebot import types
 from bs4 import BeautifulSoup
+from atproto import Client, client_utils
+import shutil
 import xml.etree.ElementTree as ET
 import os
 
@@ -28,7 +30,7 @@ def get_post_photo(url):
     photo = html.find('meta', {'property': 'og:image'})['content']
     return photo
 
-def bluesky_post(title, link):
+def bluesky_post(link, title):
     title = title.replace('[', '\n')
     title = title.replace(']', '')
     client = Client(base_url='https://bsky.social')
@@ -69,6 +71,7 @@ def get_site():
     return BeautifulSoup(response.content, 'html.parser')
 
 def checkUpdates(param, html):
+    return True
     link = param.split('/')[-1]
     if link not in str(html):
         return True
@@ -90,3 +93,4 @@ if __name__ == "__main__":
             continue
         if checkUpdates((link), get_site()):
             send_message(link, title)
+            bluesky_post(link, title)

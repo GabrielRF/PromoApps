@@ -1,3 +1,4 @@
+atproto==0.0.52
 appdirs==1.4.3
 beautifulsoup4==4.11.1
 bs4==0.0.1
