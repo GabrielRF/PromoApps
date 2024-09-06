@@ -23,4 +23,4 @@ jobs:
           DESTINATION: ${{ secrets.DESTINATION }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           FEED_URL: ${{ secrets.FEED_URL }}
-
+          BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
