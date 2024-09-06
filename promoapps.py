@@ -17,6 +17,42 @@ bot = telebot.TeleBot(TOKEN)
 lastUpdates = 'history'
 user_agent = {'User-agent': 'Mozilla/5.1'}
 
+def get_post_photo(url):
+    response = requests.get(
+        url,
+        headers = {'User-agent': 'Mozilla/5.1'},
+        timeout=3,
+        verify=False
+    )
+    html = BeautifulSoup(response.content, 'html.parser')
+    photo = html.find('meta', {'property': 'og:image'})['content']
+    return photo
+
+def bluesky_post(title, link):
+    title = title.replace('[', '\n')
+    title = title.replace(']', '')
+    client = Client(base_url='https://bsky.social')
+    client.login('promoapps.grf.xyz', os.environ.get('BLUESKY_PASSWORD'))
+    text_builder = client_utils.TextBuilder()
+    text_builder.link(
+        title,
+        link
+    )
+    
+    photo = get_post_photo(link)
+    file_name = photo.split("/")[-1]
+    with requests.get(photo, stream=True) as r:
+        with open(photo.split("/")[-1], 'wb') as f:
+            shutil.copyfileobj(r.raw, f)
+    with open(file_name, 'rb') as f:
+        image_data = f.read()
+    client.send_image(
+        text=text_builder,
+        image=image_data,
+        image_alt=title,
+    )
+    os.remove(file_name)
+
 def send_message(url, title):
     title = title.replace('[', '\n')
     title = title.replace(']', '')
