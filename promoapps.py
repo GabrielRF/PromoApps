@@ -71,7 +71,6 @@ def get_site():
     return BeautifulSoup(response.content, 'html.parser')
 
 def checkUpdates(param, html):
-    return True
     link = param.split('/')[-1]
     if link not in str(html):
         return True
