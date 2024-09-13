@@ -2,6 +2,7 @@ import telebot
 import time
 import urllib
 import requests
+import sqlite3
 import sys
 import feedparser
 from telebot import types
@@ -70,17 +71,25 @@ def get_site():
         return False
     return BeautifulSoup(response.content, 'html.parser')
 
-def checkUpdates(param, html):
-    link = param.split('/')[-1]
-    if link not in str(html):
-        return True
-    return False
+def add_to_history(link):
+    conn = sqlite3.connect('links_history.db')
+    cursor = conn.cursor()
+    aux = f'INSERT INTO history (link) VALUES ("{link}")'
+    cursor.execute(aux)
+    conn.commit()
+    conn.close()
+
+def checkUpdates(link):
+    conn = sqlite3.connect('links_history.db')
+    cursor = conn.cursor()
+    aux = f'SELECT * from history WHERE link="{link}"'
+    cursor.execute(aux)
+    data = cursor.fetchone()
+    conn.close()
+    return data
 
 if __name__ == "__main__":
     feed = feedparser.parse(FEED_URL)
-    htmltg = get_site()
-    if not htmltg:
-        exit()
     for item in feed['items'][:5]:
         for url in item['summary'].split('"'):
             if '://apps.apple.com/' in url:
@@ -90,6 +99,7 @@ if __name__ == "__main__":
             print(link)
         except:
             continue
-        if checkUpdates((link), get_site()):
+        if not checkUpdates(link):
             send_message(link, title)
             bluesky_post(link, title)
+            add_to_history(link)
