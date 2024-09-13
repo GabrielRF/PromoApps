@@ -11,6 +11,16 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: Download artifact
+        id: download
+        continue-on-error: true
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: cron.yml
+          workflow_conclusion: success
+      - name: Move database
+        continue-on-error: true
+        run: mv links_history/links_history.db links_history.db
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -24,3 +34,8 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           FEED_URL: ${{ secrets.FEED_URL }}
           BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
+      - name: Upload history
+        uses: actions/upload-artifact@v3
+        with:
+          name: links_history
+          path: links_history.db
