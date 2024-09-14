@@ -41,20 +41,25 @@ def bluesky_post(link, title):
         title,
         link
     )
-    
-    photo = get_post_photo(link)
-    file_name = photo.split("/")[-1]
-    with requests.get(photo, stream=True) as r:
-        with open(photo.split("/")[-1], 'wb') as f:
-            shutil.copyfileobj(r.raw, f)
-    with open(file_name, 'rb') as f:
-        image_data = f.read()
-    client.send_image(
-        text=text_builder,
-        image=image_data,
-        image_alt=title,
-    )
-    os.remove(file_name)
+
+    try:
+        photo = get_post_photo(link)
+        file_name = photo.split("/")[-1]
+        with requests.get(photo, stream=True) as r:
+            with open(photo.split("/")[-1], 'wb') as f:
+                shutil.copyfileobj(r.raw, f)
+        with open(file_name, 'rb') as f:
+            image_data = f.read()
+        client.send_image(
+            text=text_builder,
+            image=image_data,
+            image_alt=title,
+        )
+        os.remove(file_name)
+    except:
+        client.send_post(
+            text_builder
+        )
 
 def send_message(url, title):
     title = title.replace('[', '\n')
