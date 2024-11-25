@@ -105,6 +105,9 @@ if __name__ == "__main__":
         except:
             continue
         if not checkUpdates(link):
-            send_message(link, title)
-            bluesky_post(link, title)
+            try:
+                send_message(link, title)
+                bluesky_post(link, title)
+            except:
+                pass
             add_to_history(link)
