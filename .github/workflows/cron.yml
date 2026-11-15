@@ -10,32 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Download artifact
         id: download
         continue-on-error: true
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         with:
           workflow: cron.yml
           workflow_conclusion: success
       - name: Move database
         continue-on-error: true
         run: mv links_history/links_history.db links_history.db
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.8'
-      - name: Install Requirements
-        run: pip install -r requirements.txt
+      - name: Install uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2
       - name: Run PromoApps
-        run: python promoapps.py
+        run: uv run promoapps.py
         env:
           DESTINATION: ${{ secrets.DESTINATION }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           FEED_URL: ${{ secrets.FEED_URL }}
           BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
       - name: Upload history
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: links_history
           path: links_history.db
